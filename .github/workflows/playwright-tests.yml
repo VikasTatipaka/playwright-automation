@@ -10,8 +10,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # ✅ Inject GitHub Secrets into environment
+    env:
+      VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
+      EMPTY_PASSWORD: ${{ secrets.EMPTY_PASSWORD }}
+
     steps:
-      # Checkout code from GitHub
+      # Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
