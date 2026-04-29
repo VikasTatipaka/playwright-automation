@@ -32,6 +32,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           pytest -v \
+          --headed
           --browser chromium \
           --browser firefox \
           --browser webkit \
