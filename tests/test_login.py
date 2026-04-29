@@ -15,7 +15,7 @@ def test_login(page: Page, user):
 
     login = LoginPage(page)
     login.open()
-    password = os.getenv(user["password_key"])
+    password = os.getenv(user["password_key"]) or ""
     login.login(user["name"], password)
 
 
