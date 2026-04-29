@@ -1,0 +1,29 @@
+{
+  "credentials": [
+    {
+      "name": "student",
+      "password_key": "VALID_PASSWORD",
+      "expected": "success"
+    },
+    {
+      "name": "student",
+      "password_key": "INVALID_PASSWORD",
+      "expected": "failure"
+    },
+    {
+      "name": "wronguser",
+      "password_key": "VALID_PASSWORD",
+      "expected": "failure"
+    },
+    {
+      "name": "",
+      "password_key": "VALID_PASSWORD",
+      "expected": "failure"
+    },
+    {
+      "name": "student",
+      "password_key": "EMPTY_PASSWORD",
+      "expected": "failure"
+    }
+  ]
+}
