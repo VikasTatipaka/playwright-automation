@@ -12,15 +12,16 @@ with open("data/login_data.json", "r") as f:
 
 @pytest.mark.parametrize("user", login_data)
 def test_login(page: Page, user):
-
     login = LoginPage(page)
     login.open()
-    password = os.getenv(user["password_key"])
 
-    if user["password_key"] == "EMPTY_PASSWORD":
+    password_key = user["password_key"]
+
+    if password_key == "EMPTY_PASSWORD":
         password = ""
-
-    assert password is not None, f"{user['password_key']} is missing in environment variables"
+    else:
+        password = os.getenv(password_key)
+        assert password is not None, f"{password_key} is missing in environment variables"
 
     login.login(user["name"], password)
 
