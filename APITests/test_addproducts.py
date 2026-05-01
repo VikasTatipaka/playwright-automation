@@ -14,7 +14,7 @@ from utils.apiBase import APIutils
 # }
 
 def test_e2e_web_api(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless= True)
     context = browser.new_context()
     page = context.new_page()
 
