@@ -16,6 +16,8 @@ def test_network1(page:Page):
     page.get_by_placeholder("email@example.com").fill("vickyipad4@icloud.com")
     page.get_by_placeholder("enter your passsword").fill("Vikas@123")
     page.get_by_role("button", name="Login").click()
+    page.locator(".ngx-spinner-overlay").wait_for(state="hidden")
+    page.wait_for_timeout(1000)
     orders_btn= page.get_by_role("button", name="ORDERS")
     expect(orders_btn).to_be_visible()
     orders_btn.click()

@@ -1,3 +1,5 @@
+import time
+
 from playwright.sync_api import Playwright, expect
 
 from utils.apiBase import APIutils
@@ -14,18 +16,28 @@ from utils.apiBase import APIutils
 # }
 
 def test_e2e_web_api(playwright: Playwright):
-    browser = playwright.chromium.launch(headless= True)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
 
-    apiutils= APIutils()
-    order_id= apiutils.createOrder(playwright)
+    apiutils = APIutils()
+    order_id = apiutils.createOrder(playwright)
 
     page.goto("https://rahulshettyacademy.com/client")
     page.get_by_placeholder("email@example.com").fill("vickyipad4@icloud.com")
     page.get_by_placeholder("enter your passsword").fill("Vikas@123")
     page.get_by_role("button", name="Login").click()
-    orders_btn= page.get_by_role("button", name="ORDERS")
-    expect(orders_btn).to_be_visible()
+
+    page.locator(".ngx-spinner-overlay").wait_for(state="hidden")
+
+    orders_btn = page.get_by_role("button", name="ORDERS")
+    expect(orders_btn).to_be_enabled()
     orders_btn.click()
+
+    row = page.locator("tr").filter(has_text= order_id)
+    row.get_by_role("button", name="View").click()
+    time.sleep(3)
     expect(page.locator(".tagline")).to_have_text("Thank you for Shopping With Us")
+
+    context.close()
+    browser.close()
